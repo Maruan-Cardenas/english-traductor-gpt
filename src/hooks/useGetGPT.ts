@@ -1,12 +1,12 @@
 import { useEffect, useState } from "preact/hooks"
 
-export const useGetGPT = async (text: string) => {
+export const useGetGPT = (text: string) => {
     const [message, setMessage] = useState('')
     console.log(text)
     useEffect(()=>{
         (async()=>{
             if (text) {
-                const response = await fetch('http:localhost:4321/gpt', {
+                const response = await fetch('/api/gpt', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -18,6 +18,6 @@ export const useGetGPT = async (text: string) => {
             }
         })()
     },[text])
-    
+    console.log(message)
     return { message }
 }

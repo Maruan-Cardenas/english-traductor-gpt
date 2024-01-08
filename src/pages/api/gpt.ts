@@ -7,7 +7,6 @@ const openai = new OpenAI({
 
 export const POST: APIRoute = async ({ request }) => {
   const userMessage = await request.json()
-
   const chat = await openai.chat.completions.create({
      messages: [
        { role: "system", content: "Eres un traductor de inglés" },
@@ -18,9 +17,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   const message = chat.choices[0].message.content
 
-    return new Response(JSON.stringify({
+    return new Response(JSON.stringify(
     message
-    }), {
+    ), {
     status: 200
     })
   }
