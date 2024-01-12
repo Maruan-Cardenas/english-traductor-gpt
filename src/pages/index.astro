@@ -1,22 +1,14 @@
 ---
-import { Audio } from '../components/Audio';
+import { Screen } from '../components/Screen';
+import { TextToText } from '../components/TextToText';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<Audio client:load />
+	<main class="flex flex-col items-center justify-center h-screen">
+		<div class="w-[50vw] flex gap-4">
+			<TextToText client:load />
+			<Screen client:load />
+		</div>
 	</main>
 </Layout>
-
-<style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
-</style>

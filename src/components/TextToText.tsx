@@ -1,20 +1,25 @@
-import type { ChangeEvent } from "preact/compat"
+import { useStore } from "@nanostores/preact"
 import { useState } from "preact/hooks"
-import { useGetGPT } from "../hooks/useGetGPT"
+import { gpt } from "../services/gpt"
+import { languageStore } from "../store/screen"
+import { Audio } from "./Audio"
+
 
 export const TextToText = () => {
     const [text, setText] = useState('')
-    const { message } = useGetGPT(text)
+    const $language = useStore(languageStore)
     
-    const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        if(e.target) {
-            console.log(e)
-        }
+    const traduction = (): void => {
+        gpt(text, $language)
     }
 
     return (
-        <div>
-            <input type="text" onChange={(e) => handleChange(e)} />
-        </div>    
+        <section className="flex flex-col w-[50%]">
+            <textarea type="text" onChange={(e: any) => setText(e.target.value)} class="resize-none h-[50vh]" />
+            <div className="flex">
+                <button onClick={traduction} className='w-full text-white bg-blue-500 text-wite'>Traducir</button>
+                <Audio />
+            </div>
+        </section>    
     )
 }

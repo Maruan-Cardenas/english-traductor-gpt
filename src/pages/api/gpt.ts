@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
   const userMessage = await request.json()
   const chat = await openai.chat.completions.create({
      messages: [
-       { role: "system", content: "Eres un traductor de inglés" },
+       { role: "system", content: "High-level translator in all languages" },
        { role: 'user', content: userMessage }
      ],
      model: "gpt-3.5-turbo",

@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useRef, useState } from "preact/hooks";
+import { gpt } from '../services/gpt';
+import { languageStore } from '../store/screen';
+import { useStore } from '@nanostores/preact';
 
 export const useRecordAudio = () => {
     const [audioChunks, setAudioChunks] = useState<Blob[]>([])
     const [recording, setRecording] = useState(false)
     const [audioUrl, setAudioUrl] = useState('')
     const recorder = useRef<MediaRecorder>()
-    const [text, setText] = useState('')
+    const $language = useStore(languageStore)
 
     const startRecording = async () => {
         try {
@@ -46,12 +49,12 @@ export const useRecordAudio = () => {
                         Authorization: `Bearer ${import.meta.env.PUBLIC_OPENAI_API_KEY}`
                     },
                 }).then(res => {
-                    setText(res.data.text)
+                    gpt(res.data.text, $language)
                 })
                     }
                 };
         setRecording(false);
     };
 
-    return { recording, startRecording, stopRecording, audioUrl, text }
+    return { recording, startRecording, stopRecording, audioUrl }
 }

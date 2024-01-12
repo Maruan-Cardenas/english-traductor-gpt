@@ -1,18 +1,19 @@
 import { useRecordAudio } from "../hooks/useRecordAudio"
+import { Mic } from "../svg/mic.tsx"
 
 export const Audio = () => {
-    const {stopRecording, startRecording, audioUrl, recording, text} = useRecordAudio()
+    const { stopRecording, startRecording, recording } = useRecordAudio()
     return (
-        <div>
-            {text}
-            <audio controls src={audioUrl} />
+        <section>
             {
                 recording
-                ? <button onClick={stopRecording}>Stop</button>
-                : <button onClick={startRecording}>Start</button>
+                ? <button onMouseUp={stopRecording} className="h-full bg-red-500">
+                    <Mic class="p-2" />
+                </button>
+                : <button onMouseDown={startRecording} className="h-full bg-blue-500">
+                    <Mic class="p-2" />
+                </button>
             }
-            
-            
-        </div>    
+        </section>    
     )
 }
